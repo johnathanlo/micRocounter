@@ -1,31 +1,31 @@
-find_xmers <- function(mon_len, x){
+find_xmers <- function(mon_len, micro_list){
   valid <- c(2,3,4,5,6)
   if (mon_len == 2)
   {
-    xmer <- cbind(x$Twomers$Loci, x$Twomers$Lengths, x$Twomers$Sequence, x$Twomers$Header)
+    xmer <- cbind(micro_list$Twomers$Loci, micro_list$Twomers$Lengths, micro_list$Twomers$Sequence, micro_list$Twomers$SequenceNames)
   }
   if (mon_len == 3)
   {
-    xmer <- cbind(x$Threemers$Loci, x$Threemers$Lengths, x$Threemers$Sequence, x$Threemers$Header)
+    xmer <- cbind(micro_list$Threemers$Loci, micro_list$Threemers$Lengths, micro_list$Threemers$Sequence, micro_list$Threemers$SequenceNames)
   }
   if (mon_len == 4)
   {
-    xmer <- cbind(x$Fourmers$Loci, x$Fourmers$Lengths, x$Fourmers$Sequence, x$Fourmers$Header)
+    xmer <- cbind(micro_list$Fourmers$Loci, micro_list$Fourmers$Lengths, micro_list$Fourmers$Sequence, micro_list$Fourmers$SequenceNames)
   }
   if (mon_len == 5)
   {
-    xmer <- cbind(x$Fivemers$Loci, x$Fivemers$Lengths, x$Fivemers$Sequence, x$Fivemers$Header)
+    xmer <- cbind(micro_list$Fivemers$Loci, micro_list$Fivemers$Lengths, micro_list$Fivemers$Sequence, micro_list$Fivemers$SequenceNames)
   }
   if (mon_len == 6)
   {
-    xmer <- cbind(x$Sixmers$Loci, x$Sixmers$Lengths, x$Sixmers$Sequence, x$Sixmers$Header)
+    xmer <- cbind(micro_list$Sixmers$Loci, micro_list$Sixmers$Lengths, micro_list$Sixmers$Sequence, micro_list$Sixmers$SequenceNames)
   }
   if (!(mon_len%in%valid))
   {
     print("Invalid argument, monomer lengths between 2 and 6 only.")
   }
 
-  colnames(xmer) <- c("Loci", "Lengths", "Sequence", "Header")
+  colnames(xmer) <- c("Loci", "Lengths", "Sequence", "SequenceName")
   xmer <- as.data.frame(xmer)
   xmer<-xmer[order(xmer$Sequence),]
 
@@ -61,7 +61,7 @@ find_xmers <- function(mon_len, x){
                        vector(mode = "numeric", length=length(xm.uniq)),
                        vector(mode = "numeric", length=length(xm.uniq)),
                        vector(mode = "numeric", length=length(xm.uniq)))
-  colnames(xm.summary) <- c("Total Loci", "Total Bases", "Loci/Length/Header", "Fraction of all xmers", "Fraction of all microsats", "Fraction of whole genome")
+  colnames(xm.summary) <- c("Total Loci", "Total Bases", "Location/Length/SequenceName", "Fraction of all xmers", "Fraction of all microsats", "Fraction of whole genome")
   rownames(xm.summary) <- xm.uniq
   xm.summary <- as.data.frame(xm.summary)
 
@@ -69,7 +69,7 @@ find_xmers <- function(mon_len, x){
   i <- 0
   lengths <- as.numeric(levels(xmer$Lengths))[xmer$Lengths]
   locs <- as.numeric(levels(xmer$Loci))[xmer$Loci]
-  headers <- as.character(levels(xmer$Header))[xmer$Header]
+  sequencenames <- as.character(levels(xmer$SequenceName))[xmer$SequenceName]
   xmer.sum <- 0
   new.levels.tb <- integer(length = length(xm.uniq))
   new.levels.tl <- integer(length = length(xm.uniq))
@@ -97,19 +97,19 @@ find_xmers <- function(mon_len, x){
     {
       num.loci <- num.loci + 1
       sum <- sum + lengths[index]#sum up their lengths
-      loc_len[[num.loci]] = c(locs[index], lengths[index], headers[index])#single brackets returns indexed element as a list, double brackets returns a single indexed element itself
+      loc_len[[num.loci]] = c(locs[index], lengths[index], sequencenames[index])#single brackets returns indexed element as a list, double brackets returns a single indexed element itself
     }
     new.levels.ll[[i]] = loc_len
     new.levels.tb[i] <- sum
     new.levels.tl[i] <- num.loci
-    new.levels.pct.genome[i] <- (sum*mon_len)/(x$`Genome Size`)
-    new.levels.pct.microsats[i] <- (sum*mon_len)/(x$`Total Microsat Content`)
+    new.levels.pct.genome[i] <- (sum*mon_len)/(micro_list$`Genome Size`)
+    new.levels.pct.microsats[i] <- (sum*mon_len)/(micro_list$`Total Microsat Content`)
     xmer.sum <- xmer.sum + sum
   }
   new.levels.pct.xmer = new.levels.tb/xmer.sum
   xm.summary["Total Bases"] = new.levels.tb*mon_len
   xm.summary["Total Loci"] = new.levels.tl
-  xm.summary$`Loci/Length/Header` = new.levels.ll ##not sure why this works, go back and read docs
+  xm.summary$`Location/Length/SequenceName` = new.levels.ll ##not sure why this works, go back and read docs
   xm.summary["Fraction of whole genome"] = new.levels.pct.genome
   xm.summary["Fraction of all microsats"] = new.levels.pct.microsats
   xm.summary["Fraction of all xmers"] = new.levels.pct.xmer

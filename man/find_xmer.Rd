@@ -7,12 +7,12 @@ Organizes output from read.fasta()
 This function takes raw output from the read.fasta() function and produces a dataframe describing microsatellite content for one type of monomer, e.g. all twomers, threemers, fourmers, etc, aggregated by the base sequence, e.g. all atgg repeats, all tct repeats, etc.
 }
 \usage{
-find_xmer(mon_len, x)
+find_xmer(mon_len, micro_list)
 }
 \arguments{
   \item{mon_len}{A numeric value between 2 and 6 describing the length of microsatellite monomer desired
 }
-  \item{x}{the output from read.fasta()}
+  \item{micro_list}{the output from read.fasta()}
 }
 
 \details{

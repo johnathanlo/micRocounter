@@ -25,7 +25,7 @@ struct merloc
 List findMS(std::string fileloc, NumericVector minrepeats, NumericVector tolerancefactors)
 {
     char ch, bpmem[12], twomer[3], threemer[4], fourmer[5], fivemer[6], sixmer[7],
-        header_str[100];
+        header_str[200];
     const char *filename = fileloc.c_str();
     int i, j, twocount, threecount, fourcount, fivecount, sixcount, rep_counter,
         skips = 0, gloc = 0, flag = 0, oncount = 0, tot_microsat_content = 0,
@@ -499,11 +499,11 @@ List findMS(std::string fileloc, NumericVector minrepeats, NumericVector toleran
       Rsixmheaders[i] = sixm.header_seqs[i];
     }
 
-    List          Rtwom(List::create(Named("Loci") = Rtwomlocs, _["Lengths"] = Rtwomlens, _["Sequence"] = Rtwomseqs, _["Header"] = Rtwomheaders)),
-                  Rthreem(List::create(Named("Loci") = Rthreemlocs, _["Lengths"] = Rthreemlens, _["Sequence"] = Rthreemseqs, _["Header"] = Rthreemheaders)),
-                  Rfourm(List::create(Named("Loci") = Rfourmlocs, _["Lengths"] = Rfourmlens, _["Sequence"] = Rfourmseqs, _["Header"] = Rfourmheaders)),
-                  Rfivem(List::create(Named("Loci") = Rfivemlocs, _["Lengths"] = Rfivemlens, _["Sequence"] = Rfivemseqs, _["Header"] = Rfivemheaders)),
-                  Rsixm(List::create(Named("Loci") = Rsixmlocs, _["Lengths"] = Rsixmlens, _["Sequence"] = Rsixmseqs, _["Header"] = Rsixmheaders));
+    List          Rtwom(List::create(Named("Loci") = Rtwomlocs, _["Lengths"] = Rtwomlens, _["Sequence"] = Rtwomseqs, _["SequenceNames"] = Rtwomheaders)),
+                  Rthreem(List::create(Named("Loci") = Rthreemlocs, _["Lengths"] = Rthreemlens, _["Sequence"] = Rthreemseqs, _["SequenceNames"] = Rthreemheaders)),
+                  Rfourm(List::create(Named("Loci") = Rfourmlocs, _["Lengths"] = Rfourmlens, _["Sequence"] = Rfourmseqs, _["SequenceNames"] = Rfourmheaders)),
+                  Rfivem(List::create(Named("Loci") = Rfivemlocs, _["Lengths"] = Rfivemlens, _["Sequence"] = Rfivemseqs, _["SequenceNames"] = Rfivemheaders)),
+                  Rsixm(List::create(Named("Loci") = Rsixmlocs, _["Lengths"] = Rsixmlens, _["Sequence"] = Rsixmseqs, _["SequenceNames"] = Rsixmheaders));
 
     return Rcpp::List::create(Rcpp::Named("Twomers") = Rtwom,
                               Rcpp::Named("Threemers") = Rthreem,
