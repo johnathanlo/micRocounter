@@ -27,10 +27,8 @@ List findMS(std::string fileloc, NumericVector minrepeats, NumericVector toleran
     char ch, bpmem[12], twomer[3], threemer[4], fourmer[5], fivemer[6], sixmer[7],
         header_str[200];
     const char *filename = fileloc.c_str();
-    int i, j, twocount, threecount, fourcount, fivecount, sixcount, rep_counter,
-        skips = 0, flag = 0, oncount = 0, tot_microsat_content = 0,
-        header = 0, header_length = 0, hloc = 0, trun = 0;
-    unsigned long gloc = 0ULL;
+    int i, j, rep_counter, skips = 0, flag = 0, oncount = 0, tot_microsat_content = 0,
+        header = 0, header_length = 0, hloc = 0, trun = 0, gloc = 0, mbp_gloc = 0;
     struct merloc twom = {.length = (int *)malloc(sizeof(int)*1), .loc = (int *)malloc(sizeof(int)*1),
                           .tolerance = tolerancefactors[0], .minrepeats = minrepeats[0],
                           .seq = (char **)malloc(sizeof(char*)*1), .header_seqs = (char **)malloc(sizeof(char*)*1)},
@@ -52,6 +50,11 @@ List findMS(std::string fileloc, NumericVector minrepeats, NumericVector toleran
 
     while((ch = tolower(getc(gdat))) != EOF)
     {
+      if(gloc > 1000000)
+      {
+        gloc = 0;
+        mbp_gloc ++;
+      }
       if(ch == '>')
       {
         header = 1;
@@ -67,14 +70,16 @@ List findMS(std::string fileloc, NumericVector minrepeats, NumericVector toleran
       {
         header = 0;
         header_str[header_length] = '\0';
-        if (header_length > 99)
+        if (header_length > 150)
         {
           trun = 1;
         }
       }
       if(ch != '\n' && header == 0)
+      {
         gloc++;
         hloc ++;
+      }
       if((ch == 'a' || ch == 'g' || ch == 'c' || ch == 't') && header == 0)
       {
         for( i = 11; i>0; i --)
@@ -115,7 +120,7 @@ List findMS(std::string fileloc, NumericVector minrepeats, NumericVector toleran
                             sixm.seq = (char**) realloc(sixm.seq, sixm.totlocs* sizeof(char*));
                             sixm.seq[sixm.totlocs-1] = (char*) malloc(7*sizeof(char));
                             sixm.header_seqs = (char**) realloc(sixm.header_seqs, sixm.totlocs* sizeof(char*));
-                            sixm.header_seqs[sixm.totlocs-1] = (char*) malloc(100*sizeof(char));
+                            sixm.header_seqs[sixm.totlocs-1] = (char*) malloc(151*sizeof(char));
                             tot_microsat_content += 6*sixm.minrepeats;
 
                             //reverse the string
@@ -125,10 +130,13 @@ List findMS(std::string fileloc, NumericVector minrepeats, NumericVector toleran
                             }
                             sixm.seq[sixm.totlocs-1][6] = '\0';
 
-                            for(i=0; i<100; i++)
+                            i = 0;
+                            while(i < 149 && header_str[i] != '\0')
                             {
                               sixm.header_seqs[sixm.totlocs-1][i] = header_str[i];
+                              i++;
                             }
+                            sixm.header_seqs[sixm.totlocs-1][i] = '\0';
 
                           }
 
@@ -168,7 +176,7 @@ List findMS(std::string fileloc, NumericVector minrepeats, NumericVector toleran
                           fivem.seq = (char**) realloc(fivem.seq, fivem.totlocs* sizeof(char*));
                           fivem.seq[fivem.totlocs-1] = (char*) malloc(6*sizeof(char));
                           fivem.header_seqs = (char**) realloc(fivem.header_seqs, fivem.totlocs* sizeof(char*));
-                          fivem.header_seqs[fivem.totlocs-1] = (char*) malloc(100*sizeof(char));
+                          fivem.header_seqs[fivem.totlocs-1] = (char*) malloc(151*sizeof(char));
                           tot_microsat_content += 3*fivem.minrepeats;
 
                           //reverse the string
@@ -178,10 +186,13 @@ List findMS(std::string fileloc, NumericVector minrepeats, NumericVector toleran
                           }
                           fivem.seq[fivem.totlocs-1][5] = '\0';
 
-                          for(i=0; i<100; i++)
+                          i = 0;
+                          while(i < 149 && header_str[i] != '\0')
                           {
                             fivem.header_seqs[fivem.totlocs-1][i] = header_str[i];
+                            i++;
                           }
+                          fivem.header_seqs[fivem.totlocs-1][i] = '\0';
                         }
 
                         if(rep_counter > fivem.minrepeats)
@@ -220,7 +231,7 @@ List findMS(std::string fileloc, NumericVector minrepeats, NumericVector toleran
                         fourm.seq = (char**) realloc(fourm.seq, fourm.totlocs* sizeof(char*));
                         fourm.seq[fourm.totlocs-1] = (char*) malloc(5*sizeof(char));
                         fourm.header_seqs = (char**) realloc(fourm.header_seqs, fourm.totlocs* sizeof(char*));
-                        fourm.header_seqs[fourm.totlocs-1] = (char*) malloc(100*sizeof(char));
+                        fourm.header_seqs[fourm.totlocs-1] = (char*) malloc(151*sizeof(char));
                         tot_microsat_content += 4*fourm.minrepeats;
 
                         //reverse the string
@@ -230,10 +241,13 @@ List findMS(std::string fileloc, NumericVector minrepeats, NumericVector toleran
                         }
                         fourm.seq[fourm.totlocs-1][4] = '\0';
 
-                        for(i=0; i<100; i++)
+                        i = 0;
+                        while(i < 149 && header_str[i] != '\0')
                         {
                           fourm.header_seqs[fourm.totlocs-1][i] = header_str[i];
+                          i++;
                         }
+                        fourm.header_seqs[fourm.totlocs-1][i] = '\0';
                       }
 
                       if(rep_counter > fourm.minrepeats)
@@ -272,7 +286,7 @@ List findMS(std::string fileloc, NumericVector minrepeats, NumericVector toleran
                       threem.seq = (char**) realloc(threem.seq, threem.totlocs* sizeof(char*));
                       threem.seq[threem.totlocs-1] = (char*) malloc(4*sizeof(char));
                       threem.header_seqs = (char**) realloc(threem.header_seqs, threem.totlocs* sizeof(char*));
-                      threem.header_seqs[threem.totlocs-1] = (char*) malloc(100*sizeof(char));
+                      threem.header_seqs[threem.totlocs-1] = (char*) malloc(151*sizeof(char));
                       tot_microsat_content += 3*threem.minrepeats;
 
                       //reverse the string
@@ -282,10 +296,13 @@ List findMS(std::string fileloc, NumericVector minrepeats, NumericVector toleran
                       }
                       threem.seq[threem.totlocs-1][3] = '\0';
 
-                      for(i=0; i<100; i++)
+                      i = 0;
+                      while(i < 149 && header_str[i] != '\0')
                       {
                         threem.header_seqs[threem.totlocs-1][i] = header_str[i];
+                        i++;
                       }
+                      threem.header_seqs[threem.totlocs-1][i] = '\0';
                     }
 
                     if(rep_counter > threem.minrepeats)
@@ -324,7 +341,7 @@ List findMS(std::string fileloc, NumericVector minrepeats, NumericVector toleran
                     twom.seq = (char**) realloc(twom.seq, twom.totlocs* sizeof(char*));
                     twom.seq[twom.totlocs-1] = (char*) malloc(3*sizeof(char));
                     twom.header_seqs = (char**) realloc(twom.header_seqs, twom.totlocs* sizeof(char*));
-                    twom.header_seqs[twom.totlocs-1] = (char*) malloc(100*sizeof(char));
+                    twom.header_seqs[twom.totlocs-1] = (char*) malloc(151*sizeof(char));
                     tot_microsat_content += 2*twom.minrepeats;
 
                     //reverse the string
@@ -334,10 +351,14 @@ List findMS(std::string fileloc, NumericVector minrepeats, NumericVector toleran
                     }
                     twom.seq[twom.totlocs-1][2] = '\0';
 
-                    for(i=0; i<100; i++)
+                    i = 0;
+                    while(i < 149 && header_str[i] != '\0')
                     {
                       twom.header_seqs[twom.totlocs-1][i] = header_str[i];
+                      i++;
                     }
+                    twom.header_seqs[twom.totlocs-1][i] = '\0';
+
                   }
 
                   if(rep_counter > twom.minrepeats)
@@ -445,10 +466,14 @@ List findMS(std::string fileloc, NumericVector minrepeats, NumericVector toleran
     clock_t end = clock();
     double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
     printf("\nFile: %s ,Time: %lf", filename, time_spent);
+
     if(trun == 1)
     {
-      printf("\nSequence names truncated to 100 characters.");
+      printf("\nSequence names truncated to 150 characters.");
     }
+
+    mbp_gloc = mbp_gloc + round(gloc/1000000);
+
 
     NumericVector Rtwomlocs(twom.totlocs),
                   Rtwomlens(twom.totlocs),
@@ -519,7 +544,7 @@ List findMS(std::string fileloc, NumericVector minrepeats, NumericVector toleran
                               Rcpp::Named("Fourmers") = Rfourm,
                               Rcpp::Named("Fivemers") = Rfivem,
                               Rcpp::Named("Sixmers") = Rsixm,
-                              Rcpp::Named("Genome Size") = gloc,
+                              Rcpp::Named("Genome Size (Mbp)") = mbp_gloc,
                               Rcpp::Named("Total Microsat Content") = tot_microsat_content);
     return 0;
 }
