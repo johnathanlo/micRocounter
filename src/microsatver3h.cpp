@@ -28,8 +28,9 @@ List findMS(std::string fileloc, NumericVector minrepeats, NumericVector toleran
         header_str[200];
     const char *filename = fileloc.c_str();
     int i, j, twocount, threecount, fourcount, fivecount, sixcount, rep_counter,
-        skips = 0, gloc = 0, flag = 0, oncount = 0, tot_microsat_content = 0,
+        skips = 0, flag = 0, oncount = 0, tot_microsat_content = 0,
         header = 0, header_length = 0, hloc = 0;
+    unsigned long gloc = 0ULL;
     struct merloc twom = {.length = (int *)malloc(sizeof(int)*1), .loc = (int *)malloc(sizeof(int)*1),
                           .tolerance = tolerancefactors[0], .minrepeats = minrepeats[0],
                           .seq = (char **)malloc(sizeof(char*)*1), .header_seqs = (char **)malloc(sizeof(char*)*1)},
