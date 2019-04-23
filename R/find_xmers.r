@@ -1,4 +1,4 @@
-find_xmers <- function(mon_len, micro_list){
+find_xmers <- function(mon_len=2, micro_list){
   valid <- c(2,3,4,5,6)
   if (mon_len == 2)
   {
@@ -102,7 +102,7 @@ find_xmers <- function(mon_len, micro_list){
     new.levels.ll[[i]] = loc_len
     new.levels.tb[i] <- sum
     new.levels.tl[i] <- num.loci
-    new.levels.pct.genome[i] <- (sum*mon_len)/(micro_list$`Genome Size`)
+    new.levels.pct.genome[i] <- (sum*mon_len)/(micro_list$`Genome Size (Mbp)`)
     new.levels.pct.microsats[i] <- (sum*mon_len)/(micro_list$`Total Microsat Content`)
     xmer.sum <- xmer.sum + sum
   }

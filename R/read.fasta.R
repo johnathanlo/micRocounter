@@ -4,7 +4,7 @@ library(Rcpp)
 ##source("str_comp.r")
 ##source("find_xmers.r")
 
-read.fasta <- function(file, minrepeats, squishy){#minrepeats&squishy = vectors of values corresponding to two, three, four, five, and six-mers respectively
+read.fasta <- function(file, minrepeats = c(6,4,3,3,3), squishy = c(0,0,0,0,0)){#minrepeats&squishy = vectors of values corresponding to two, three, four, five, and six-mers respectively
   if (file.exists(file) && length(minrepeats) == 5 && length(squishy) == 5 && class(minrepeats) == "numeric" && class(squishy) == "numeric"){
     x<-findMS(file, minrepeats, squishy)
     return(x)
