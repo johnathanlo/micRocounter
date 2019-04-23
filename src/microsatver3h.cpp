@@ -29,7 +29,7 @@ List findMS(std::string fileloc, NumericVector minrepeats, NumericVector toleran
     const char *filename = fileloc.c_str();
     int i, j, twocount, threecount, fourcount, fivecount, sixcount, rep_counter,
         skips = 0, flag = 0, oncount = 0, tot_microsat_content = 0,
-        header = 0, header_length = 0, hloc = 0;
+        header = 0, header_length = 0, hloc = 0, trun = 0;
     unsigned long gloc = 0ULL;
     struct merloc twom = {.length = (int *)malloc(sizeof(int)*1), .loc = (int *)malloc(sizeof(int)*1),
                           .tolerance = tolerancefactors[0], .minrepeats = minrepeats[0],
@@ -67,6 +67,10 @@ List findMS(std::string fileloc, NumericVector minrepeats, NumericVector toleran
       {
         header = 0;
         header_str[header_length] = '\0';
+        if (header_length > 99)
+        {
+          trun = 1;
+        }
       }
       if(ch != '\n' && header == 0)
         gloc++;
@@ -441,6 +445,10 @@ List findMS(std::string fileloc, NumericVector minrepeats, NumericVector toleran
     clock_t end = clock();
     double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
     printf("\nFile: %s ,Time: %lf", filename, time_spent);
+    if(trun == 1)
+    {
+      printf("\nSequence names truncated to 100 characters.");
+    }
 
     NumericVector Rtwomlocs(twom.totlocs),
                   Rtwomlens(twom.totlocs),
