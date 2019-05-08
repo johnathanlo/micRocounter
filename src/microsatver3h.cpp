@@ -381,7 +381,7 @@ List findMS(std::string fileloc, NumericVector minrepeats, NumericVector toleran
               }
             }
           }
-//detect presence of repeats - also change to recursive function later
+
         if(flag == 0)
         {
           if(bpmem[0] == bpmem[2] && bpmem[1] == bpmem[3])
@@ -472,7 +472,7 @@ List findMS(std::string fileloc, NumericVector minrepeats, NumericVector toleran
       printf("\nSequence names truncated to 150 characters.");
     }
 
-    mbp_gloc = mbp_gloc + round(gloc/1000000);
+    mbp_gloc = mbp_gloc;
 
 
     NumericVector Rtwomlocs(twom.totlocs),
