@@ -1,4 +1,4 @@
-export(read.fasta)
-export(find_xmers)
+export(ReadFasta)
+export(FindXmers)
 importFrom(Rcpp, sourceCpp)
 useDynLib(micRocounter)
