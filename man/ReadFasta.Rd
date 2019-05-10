@@ -4,7 +4,7 @@
 Finds microsatellite content in a fasta file
 }
 \usage{
-read.fasta(file, minrepeats, squishy)
+read.fasta(file, minrepeats = c(6,4,3,3,3), squishy = c(1,1,1,1,1))
 }
 \arguments{
   \item{file}{the path to the fasta file for analysis}
