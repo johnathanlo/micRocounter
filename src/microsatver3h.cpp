@@ -30,19 +30,19 @@ List findMS(std::string fileloc, NumericVector minrepeats, NumericVector toleran
     int i, j, rep_counter = 0, skips = 0, flag = 0, oncount = 0, tot_microsat_content = 0,
         header = 0, header_length = 0, hloc = 0, trun = 0, gloc = 0, mbp_gloc = 0;
     struct merloc twom = {.length = (int *)malloc(sizeof(int)*1), .loc = (int *)malloc(sizeof(int)*1),
-                          .tolerance = (int)tolerancefactors[0], .minrepeats = (int)minrepeats[0],
+                          .tolerance = tolerancefactors[0], .minrepeats = minrepeats[0],
                           .seq = (char **)malloc(sizeof(char*)*1), .header_seqs = (char **)malloc(sizeof(char*)*1)},
                   threem = {.length = (int *)malloc(sizeof(int)*1), .loc = (int *)malloc(sizeof(int)*1),
-                            .tolerance = (int)tolerancefactors[1], .minrepeats = (int)minrepeats[1],
+                            .tolerance = tolerancefactors[1], .minrepeats = minrepeats[1],
                             .seq = (char **)malloc(sizeof(char*)*1), .header_seqs = (char **)malloc(sizeof(char*)*1)},
                   fourm = {.length = (int *)malloc(sizeof(int)*1), .loc = (int *)malloc(sizeof(int)*1),
-                           .tolerance = (int)tolerancefactors[2], .minrepeats = (int)minrepeats[2],
+                           .tolerance = tolerancefactors[2], .minrepeats = minrepeats[2],
                            .seq = (char **)malloc(sizeof(char*)*1), .header_seqs = (char **)malloc(sizeof(char*)*1)},
                   fivem = {.length = (int *)malloc(sizeof(int)*1), .loc = (int *)malloc(sizeof(int)*1),
-                           .tolerance = (int)tolerancefactors[3], .minrepeats = (int)minrepeats[3],
+                           .tolerance = tolerancefactors[3], .minrepeats = minrepeats[3],
                            .seq = (char **)malloc(sizeof(char*)*1), .header_seqs = (char **)malloc(sizeof(char*)*1)},
                   sixm= {.length = (int *)malloc(sizeof(int)*1), .loc = (int *)malloc(sizeof(int)*1),
-                         .tolerance = (int)tolerancefactors[4], .minrepeats = (int)minrepeats[4],
+                         .tolerance = tolerancefactors[4], .minrepeats = minrepeats[4],
                          .seq = (char **)malloc(sizeof(char*)*1), .header_seqs = (char **)malloc(sizeof(char*)*1)};
     clock_t begin = clock();
     FILE *gdat;
