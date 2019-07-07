@@ -24,7 +24,7 @@ struct merloc
 //[[Rcpp::export]]
 List findMS(std::string fileloc, NumericVector minrepeats, NumericVector tolerancefactors)
 {
-    char ch, bpmem[12], twomer[3] = {0}, threemer[4] = {0}, fourmer[5] = {0}, fivemer[6]={0}, sixmer[7] = {0},
+    char ch, bpmem[12], twomer[3], threemer[4], fourmer[5], fivemer[6], sixmer[7],
         header_str[200];
     const char *filename = fileloc.c_str();
     int i, j, rep_counter = 0, skips = 0, flag = 0, oncount = 0, tot_microsat_content = 0,
