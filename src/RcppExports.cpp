@@ -6,14 +6,14 @@
 using namespace Rcpp;
 
 // findMS
-List findMS(std::string fileloc, IntegerVector minrepeats, IntegerVector tolerancefactors);
+List findMS(std::string fileloc, NumericVector minrepeats, NumericVector tolerancefactors);
 RcppExport SEXP _micRocounter_findMS(SEXP filelocSEXP, SEXP minrepeatsSEXP, SEXP tolerancefactorsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< std::string >::type fileloc(filelocSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type minrepeats(minrepeatsSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type tolerancefactors(tolerancefactorsSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type minrepeats(minrepeatsSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type tolerancefactors(tolerancefactorsSEXP);
     rcpp_result_gen = Rcpp::wrap(findMS(fileloc, minrepeats, tolerancefactors));
     return rcpp_result_gen;
 END_RCPP

@@ -22,9 +22,9 @@ struct merloc
 };
 
 //[[Rcpp::export]]
-List findMS(std::string fileloc, IntegerVector minrepeats, IntegerVector tolerancefactors)
+List findMS(std::string fileloc, NumericVector minrepeats, NumericVector tolerancefactors)
 {
-    char ch, bpmem[12], twomer[3] = {0}, threemer[4] = {0}, fourmer[5] = {0}, fivemer[6] = {0}, sixmer[7] = {0},
+    char ch, bpmem[12], twomer[3], threemer[4], fourmer[5], fivemer[6], sixmer[7],
         header_str[200];
     const char *filename = fileloc.c_str();
     int i, j, rep_counter, skips = 0, flag = 0, oncount = 0, tot_microsat_content = 0,
@@ -124,7 +124,7 @@ List findMS(std::string fileloc, IntegerVector minrepeats, IntegerVector toleran
                             tot_microsat_content += 6*sixm.minrepeats;
 
                             //reverse the string
-                            for(i=0, j = 5; j>=0; i++, j--)
+                            for(i=0, j = 5; i<6, j>=0; i++, j--)
                             {
                               sixm.seq[sixm.totlocs-1][i] = sixmer[j];
                             }
@@ -180,7 +180,7 @@ List findMS(std::string fileloc, IntegerVector minrepeats, IntegerVector toleran
                           tot_microsat_content += 3*fivem.minrepeats;
 
                           //reverse the string
-                          for(i=0, j = 4; j>=0; i++, j--)
+                          for(i=0, j = 4; i<5, j>=0; i++, j--)
                           {
                             fivem.seq[fivem.totlocs-1][i] = fivemer[j];
                           }
@@ -235,7 +235,7 @@ List findMS(std::string fileloc, IntegerVector minrepeats, IntegerVector toleran
                         tot_microsat_content += 4*fourm.minrepeats;
 
                         //reverse the string
-                        for(i=0, j = 3; j>=0; i++, j--)
+                        for(i=0, j = 3; i<4, j>=0; i++, j--)
                         {
                           fourm.seq[fourm.totlocs-1][i] = fourmer[j];
                         }
@@ -290,7 +290,7 @@ List findMS(std::string fileloc, IntegerVector minrepeats, IntegerVector toleran
                       tot_microsat_content += 3*threem.minrepeats;
 
                       //reverse the string
-                      for(i=0, j = 2; j>=0; i++, j--)
+                      for(i=0, j = 2; i<3, j>=0; i++, j--)
                       {
                         threem.seq[threem.totlocs-1][i] = threemer[j];
                       }
@@ -345,7 +345,7 @@ List findMS(std::string fileloc, IntegerVector minrepeats, IntegerVector toleran
                     tot_microsat_content += 2*twom.minrepeats;
 
                     //reverse the string
-                    for(i=0, j = 1; j>=0; i++, j--)
+                    for(i=0, j = 1; i<2, j>=0; i++, j--)
                     {
                       twom.seq[twom.totlocs-1][i] = twomer[j];
                     }
