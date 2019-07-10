@@ -472,8 +472,6 @@ List findMS(std::string fileloc, IntegerVector minrepeats, IntegerVector toleran
       printf("\nSequence names truncated to 150 characters.");
     }
 
-    mbp_gloc = mbp_gloc;
-
 
     NumericVector Rtwomlocs(twom.totlocs),
                   Rtwomlens(twom.totlocs),
