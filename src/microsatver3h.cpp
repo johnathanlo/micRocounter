@@ -465,7 +465,7 @@ List findMS(std::string fileloc, IntegerVector minrepeats, IntegerVector toleran
 
     clock_t end = clock();
     double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-    printf("\nFile: %s ,Time: %lf", filename, time_spent);
+    printf("File: %s ,Time: %lf\n", filename, time_spent);
 
     if(trun == 1)
     {
