@@ -384,36 +384,35 @@ List findMS(std::string fileloc, IntegerVector minrepeats, IntegerVector toleran
 
         if(flag == 0)
         {
-          if(bpmem[0] == bpmem[2] && bpmem[1] == bpmem[3])
+          if(bpmem[0] == bpmem[6] && bpmem[1] == bpmem[7] && bpmem[2] == bpmem[8] && bpmem[3] == bpmem[9] && bpmem[4] == bpmem[10] && bpmem[5] == bpmem[11] && (bpmem[0]!=bpmem[2] || bpmem[2] != bpmem[4] || bpmem[1] != bpmem[3] || bpmem[3]!=bpmem[5]))
           {
             flag = 1;
-            twom.flag = 1;
+            sixm.flag = 1;
             rep_counter = 2;
             oncount = 0;
             skips = 0;
 
-            for(i=0; i<2; i++)
-              twomer[i] = bpmem[i];
-            twomer[2] = '\0';
-
+            for(i=0; i<6; i++)
+              sixmer[i] = bpmem[i];
+            sixmer[6] = '\0';
           }
           else
           {
-            if(bpmem[0] == bpmem[3] && bpmem[1] == bpmem[4] && bpmem[2] == bpmem[5])
+            if(bpmem[0] == bpmem[5] && bpmem[1] == bpmem[6] && bpmem[2] == bpmem[7] && bpmem[3] == bpmem[8] && bpmem[4] == bpmem[9])
             {
               flag = 1;
-              threem.flag = 1;
+              fivem.flag = 1;
               rep_counter = 2;
               oncount = 0;
               skips = 0;
 
-              for(i=0; i<3; i++)
-                threemer[i] = bpmem[i];
-              threemer[3] = '\0';
+              for(i=0; i<5; i++)
+                fivemer[i] = bpmem[i];
+              fivemer[5] = '\0';
             }
             else
             {
-              if(bpmem[0] == bpmem[4] && bpmem[1] == bpmem[5] && bpmem[2] == bpmem[6] && bpmem[3] == bpmem[7])
+              if(bpmem[0] == bpmem[4] && bpmem[1] == bpmem[5] && bpmem[2] == bpmem[6] && bpmem[3] == bpmem[7] && (bpmem[0]!=bpmem[2] || bpmem[1]!=bpmem[3]))
               {
                 flag = 1;
                 fourm.flag = 1;
@@ -427,31 +426,32 @@ List findMS(std::string fileloc, IntegerVector minrepeats, IntegerVector toleran
               }
               else
               {
-                if(bpmem[0] == bpmem[5] && bpmem[1] == bpmem[6] && bpmem[2] == bpmem[7] && bpmem[3] == bpmem[8] && bpmem[4] == bpmem[9])
+                if(bpmem[0] == bpmem[3] && bpmem[1] == bpmem[4] && bpmem[2] == bpmem[5])
                 {
                   flag = 1;
-                  fivem.flag = 1;
+                  threem.flag = 1;
                   rep_counter = 2;
                   oncount = 0;
                   skips = 0;
 
-                  for(i=0; i<5; i++)
-                    fivemer[i] = bpmem[i];
-                  fivemer[5] = '\0';
+                  for(i=0; i<3; i++)
+                    threemer[i] = bpmem[i];
+                  threemer[3] = '\0';
                 }
                 else
                 {
-                  if(bpmem[0] == bpmem[6] && bpmem[1] == bpmem[7] && bpmem[2] == bpmem[8] && bpmem[3] == bpmem[9] && bpmem[4] == bpmem[10] && bpmem[5] == bpmem[11])
+                  if(bpmem[0] == bpmem[2] && bpmem[1] == bpmem[3])
                   {
                     flag = 1;
-                    sixm.flag = 1;
+                    twom.flag = 1;
                     rep_counter = 2;
                     oncount = 0;
                     skips = 0;
 
-                    for(i=0; i<6; i++)
-                      sixmer[i] = bpmem[i];
-                    sixmer[6] = '\0';
+                    for(i=0; i<2; i++)
+                      twomer[i] = bpmem[i];
+                    twomer[2] = '\0';
+
                   }
                 }
               }
@@ -465,7 +465,7 @@ List findMS(std::string fileloc, IntegerVector minrepeats, IntegerVector toleran
 
     clock_t end = clock();
     double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-    printf("File: %s ,Time: %lf\n", filename, time_spent);
+    printf("\nFile: %s ,Time: %lf", filename, time_spent);
 
     if(trun == 1)
     {

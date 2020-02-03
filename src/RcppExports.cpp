@@ -5,6 +5,20 @@
 
 using namespace Rcpp;
 
+// FindMS2
+List FindMS2(std::string fileloc, int replen, int minrepeats, int tolfac);
+RcppExport SEXP _micRocounter_FindMS2(SEXP filelocSEXP, SEXP replenSEXP, SEXP minrepeatsSEXP, SEXP tolfacSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::string >::type fileloc(filelocSEXP);
+    Rcpp::traits::input_parameter< int >::type replen(replenSEXP);
+    Rcpp::traits::input_parameter< int >::type minrepeats(minrepeatsSEXP);
+    Rcpp::traits::input_parameter< int >::type tolfac(tolfacSEXP);
+    rcpp_result_gen = Rcpp::wrap(FindMS2(fileloc, replen, minrepeats, tolfac));
+    return rcpp_result_gen;
+END_RCPP
+}
 // findMS
 List findMS(std::string fileloc, IntegerVector minrepeats, IntegerVector tolerancefactors);
 RcppExport SEXP _micRocounter_findMS(SEXP filelocSEXP, SEXP minrepeatsSEXP, SEXP tolerancefactorsSEXP) {
@@ -20,6 +34,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_micRocounter_FindMS2", (DL_FUNC) &_micRocounter_FindMS2, 4},
     {"_micRocounter_findMS", (DL_FUNC) &_micRocounter_findMS, 3},
     {NULL, NULL, 0}
 };
