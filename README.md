@@ -6,7 +6,7 @@ Characterization of microsatellite sequences in R
 
 citation:
 
-XXXXXXXXXXX
+Lo, J., Jonika, M., Blackmon, H., micRocounter: Microsatellite Characterization in Genome Assemblies, G3 - Genes Genomes Genetics. DOI: 10.1534/g3.119.400335 
 
 micRocounter is currently in beta version please do not publish results without consultation or running with the postpublication released version.
 
