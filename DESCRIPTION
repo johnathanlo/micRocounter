@@ -1,7 +1,7 @@
 Package: micRocounter
 Type: Package
 Title: Analysis of Microsatellite Content
-Version: 0.1.0
+Version: 1.1.0
 Author: Johnathan Lo and Heath Blackmon
 Maintainer: Johnathan Lo <jl6794a@tamu.edu>
 Description: Takes fasta files and looks for microsatellite content. Quantifies and analyzes content.
